@@ -1,0 +1,27 @@
+print macro p1
+mov ax,@data
+mov ds,ax
+lea dx, p1 ; Equivalente a lea dx, cadena, inicializa en dx la posicion donde comienza la cadena
+mov ah,09h ;Numero de funcion para imprimir cadena en pantalla
+int 21h
+endm
+
+getNum macro
+mov ah,01h
+int 21h
+sub al,30h
+mov bh, al
+endm
+
+getChar macro
+mov ah,01h
+int 21h
+endm
+
+;Suma= bh.bl + ch.cl
+
+;digito 1 num 1 bh
+;digito 2 num 1 bl
+
+;digito 1 num 2 ch
+;digito 2 num 2 cl

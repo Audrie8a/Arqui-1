@@ -1,0 +1,80 @@
+;-----------------------------------------------------MACROS
+include macrostc.amd
+
+;----------------------------------------------------DECLARACIONES
+.model small
+
+;----------------------------------------------------PILA
+.stack
+
+;----------------------------------------------------SEGMENTO DE DATOS
+.data
+;Variables
+suma db 0
+resta db 0 
+multiplicacion db 0
+division db 0
+;Cadenas Menu
+menu0 db 0ah,0dh, '-------------MENU PRINCIPAL -------------','$'
+menu1 db 0ah,0dh, '1.Cargar Archivo','$'
+menu2 db 0ah,0dh, '2.ModoCalculadora','$'
+menu3 db 0ah,0dh, '3.Factorial','$'
+menu4 db 0ah,0dh, '4.Crear reporte','$'
+menu5 db 0ah,0dh, '5.Salir','$'
+msjSalir db 0ah,0dh, 'Adiós :)','$'
+; Cadenas Menu ModoCalculadora
+calculadora1 db 0ah,0dh, '-------------CALCULADORA-------------','$'
+calculadora0 db 0ah,0dh, 'Ingrese un numero','$'
+calculadora0 db 0ah,0dh, 'Ingrese un numero','$'
+;----------------------------------------------------SEGMENTO DE CODIGO
+.code
+
+main proc
+	MenuPrincipal:
+		;Imprimo las cadenas para el menú
+		print menu0
+		print menu1
+		print menu2
+		print menu3
+		print menu4
+		print menu5
+		; Obtengo el caracter ingresado en número ascii. El número ascii se guardo en el registro al
+		getChar
+		;Comparo la entrada
+		cmp al,31h ;opcion 1 hexadecimal
+		je CargarArchivo
+		cmp al,32h ;opcion 2 hexadecimal
+		je ModoCalculadora
+		cmp al,33h ;opcion 3 hexadecimal
+		je Factorial
+		cmp al,34h ;opcion 4 hexadecimal
+		je CrearReporte
+		cmp al,35h ;opcion 5 hexadecimal
+		je salir
+		jmp MenuPrincipal
+
+	salir:
+	print msjSalir
+	mov ah, 4ch
+	xor al,al
+	int 21h
+	CargarArchivo:
+		print menu1
+		jmp MenuPrincipal
+	ModoCalculadora:
+		print menu2
+		jmp MenuPrincipal
+	Factorial:
+		print menu3
+		jmp MenuPrincipal
+	CrearReporte:
+		print menu4
+		jmp MenuPrincipal
+	Suma:
+		mov ax,numero1
+		add ax,numero2
+		mov  suma,ax
+		print suma
+
+main endp
+end main

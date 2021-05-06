@@ -1,0 +1,49 @@
+;Esta hablando de Masm, los nombres no pueden tener más de 8 caracteres
+;Los comentarios son con punto y coma
+;El $ en segmento de datos es el que indica el final 
+
+;MACROS
+
+print macro cadena
+	mov ax, @data
+	mov ds,ax
+	mov ah, 09h
+	mov dx, offset cadena
+	int 21h
+endm
+
+;DECLARACIONES
+
+.model small
+
+
+;PILA
+
+.stack
+
+
+;SEGMENTO DE DATOS
+
+.data
+
+cadena db 0ah, 0dh, 'Hola mundo', '$'
+
+;db 8bits define byte 1111 1111
+;dw 16 bytes
+
+
+;SEGMENTO DE CODIGO
+;prueba es una etiqueta, no puede ser llamada de igual forma 2 veces
+
+.code
+main proc
+	inicio:
+		print cadena1
+	
+	salir:
+		mov ah, 4ch	;mov es como decir igual
+		xor al, al 	;mov al, 0 al =0
+		int 21h
+maind endp
+end main
+

@@ -1,0 +1,268 @@
+;-----------------------------------------------------MACROS
+include macrostc.amd
+
+;----------------------------------------------------DECLARACIONES
+.model small
+
+;----------------------------------------------------PILA
+.stack 64
+
+;----------------------------------------------------SEGMENTO DE DATOS
+.data
+;Variables
+num1A db 0
+num1B db 0
+num2A db 0
+num2B db 0
+m db 0
+n db 0
+cien db 100
+operador db 0
+resultado db 0
+ac db 0
+ac1 db 0
+r1 db ?
+r2 db ?
+r3 db ?
+r4 db ?
+
+numero1 db 5 dup('$'), '$'
+numero2 db 5 dup('$'), '$'
+; Cadenas Menu ModoCalculadora
+calculadora0 db 0ah,0dh, '-------------CALCULADORA-------------','$'
+calculadora1 db 0ah,0dh, 'Ingrese un numero: ','$'
+calculadora2 db 0ah,0dh, 'Ingrese un operador: ','$'
+calculadora3 db 0ah,0dh, 'Ingrese cualquier valor para volver a menu o ; para finalizar','$'
+calculadora4 db 0ah,0dh, 'El resultado es: ','$'
+msjSalir db 0ah, 0dh, 'Adios :)','$'
+espacioB db 0ah,0dh, '->','$'
+
+;----------------------------------------------------SEGMENTO DE CODIGO
+.code
+
+main proc
+	MenuPrincipal:		
+
+		print calculadora1	;Imprime Pedido num1
+		obtenerTexto numero1
+
+		
+		print calculadora2	;Recibe operador		
+		getChar
+		mov operador,al
+		
+
+		print calculadora1 	;Imprime Pedido num2	
+		obtenerTexto numero2
+
+
+		print espacioB
+		print numero1
+
+		print espacioB
+		print numero2
+		jmp Operaciones
+
+	Operaciones:
+		;Comparo la entrada
+		cmp operador,2Bh ;opcion Suma
+		je Suma
+		cmp operador,2Dh ;opcion Resta
+		je Resta
+		cmp operador,2Ah ;opcion Multiplicacion
+		je Multiplicacion
+		cmp operador,2Fh ;opcion Division
+		je Division
+		jmp SubCalculadora
+	salir:
+	print msjSalir
+	mov ah, 4ch
+	xor al,al
+	int 21h
+	
+	SubCalculadora:
+		print calculadora3
+		getChar
+		mov operador,al
+
+		cmp operador,3Bh
+		je salir
+
+		
+		jmp MenuPrincipal
+	Suma:
+		mov bh, num1A
+		mov bl, num1B
+		mov ch, num2A
+		mov cl, num2B		
+		add bl, cl 	;Suma1 bl =num1B + num2B
+		mov al, bl	; al =bl -> Suma1
+		mov ah, 00h
+		aaa
+		
+		mov cl, al	; cl = al -> Suma1
+		mov bl, ah
+
+		add bl, bh 	; Suma2 bl = Suma1+ num1A
+		add bl, ch 	; Suma2 bl = Suma2 + num2A
+
+		mov al, bl	; al = bl -> Suma2
+		mov ah, 00h
+		aaa
+
+		mov bx, ax
+
+		mov dx, offset calculadora4	; Imprime Resultado
+		mov ah, 09h
+		int 21h
+
+		mov dl, bh 	;Muestra digito 1 Resultado
+		add dl, 30h
+		mov ah, 02h
+		int 21h
+
+		mov dl, bl 	;Muestra digito 2 Resultado
+		add dl, 30h
+		mov  ah, 02h
+		int 21h
+
+		mov dl, cl 	;Muestra digito 3 Resultado
+		add dl, 30h
+		mov ah, 02h
+		int 21h
+
+		jmp SubCalculadora
+	Resta:
+		mov al, 10		
+		mov bl, num1A
+		imul bl
+		
+		
+
+		mov bl,10
+
+		div bl
+
+		
+		;mov m,bl
+
+		;mov bl, m
+
+		
+
+		mov bx, ax
+		or bx,3030h
+		mov ah,02h
+		mov dl,bl
+		int 21h		
+		mov ah,02h
+		mov dl,bh
+		int 21h
+
+		add bl,num1B
+
+		
+
+		mov ch, num2A
+		mov cl, num2B
+
+		
+
+		jmp SubCalculadora
+	Multiplicacion:
+		print calculadora4
+		print espacioB
+		mov al,num2B
+		mov bl, num1B
+		mul bl
+		mov ah,0
+		aam
+		mov ac1,ah
+		mov r4,al
+
+		mov al, num2B
+		mov bl, num1A
+		mul bl
+		mov r3,al
+		mov bl, ac1
+		add r3,bl
+		mov ah, 00h
+		mov al, r3
+		aam
+		mov r3, al
+		mov ac1, ah
+
+		mov al, num2A
+		mov bl, num1B
+		mul bl
+		mov ah, 00h
+		aam
+		mov ac, ah
+		mov r2, al
+
+		mov al, num2A
+		mov bl, num1A
+		mul bl
+		mov r1,al
+		mov bl, ac
+		add r1,bl
+		mov ah, 00h
+		mov al, r1
+		aam
+		mov r1, al
+		mov ac, ah
+
+		mov ax, 0000h
+		
+		mov al, r3
+		mov bl, r2
+		add al, bl
+		mov ah, 00h
+		aam
+		mov r3,al
+		mov r2, ah
+
+		mov ax, 0000h
+
+		mov al, ac1
+		mov bl, r1
+		add al, r2
+		add al, bl
+		mov ah, 00h
+		aam
+		mov r1,al
+		mov r2, ah
+
+		mov al, r2
+		mov bl, ac
+		add al, bl
+		mov ac, al
+
+		;Mostrando resultado
+		mov ah, 02h
+		mov dl, ac
+		add dl, 30h
+		int 21h
+
+		mov ah, 02h
+		mov dl, r1
+		add dl, 30h
+		int 21h
+
+		mov ah, 02h
+		mov dl, r3
+		add dl, 30h
+		int 21h
+
+		mov ah, 02h
+		mov dl, r4
+		add dl, 30h
+		int 21h
+
+		jmp SubCalculadora
+	Division:
+	
+		jmp salir
+main endp
+end main
+

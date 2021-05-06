@@ -1,0 +1,13 @@
+
+print macro p1
+mov ax,@data
+mov ds,ax
+mov ah,09h ;Numero de funcion para imprimir cadena en pantalla
+mov dx,offset p1 ; Equivalente a lea dx, cadena, inicializa en dx la posicion donde comienza la cadena
+int 21h
+endm
+
+getChar macro
+mov ah,01h
+int 21h
+endm

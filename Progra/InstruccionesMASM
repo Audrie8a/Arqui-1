@@ -1,0 +1,19 @@
+Instrucciones
+
+mount c: c:\MASM
+c:
+cd MASM611
+cd BIN
+
+//Aquí guardo mi programa y ejecuto
+
+ml NombreArchivo.amd
+
+//Luego ya puedo copiar el archivo .amd, .exe y .obj en la carpeta Progra y ejecutarlo
+
+//Para Ejecutarlo sólo escribo el nombre del programa
+//Ejemplo 
+
+HOLA.EXE
+
+//Para salir se usa EXIT

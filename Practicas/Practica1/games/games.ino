@@ -470,7 +470,7 @@ void game_init(){
       myDisplay.begin();
       myDisplay.displayClear();
       myDisplay.setIntensity(5);
-      myDisplay.displayText(M[0].msg, PA_LEFT, velocidad, 0, PA_SCROLL_LEFT , PA_SCROLL_LEFT );
+      myDisplay.displayText(c, PA_LEFT, velocidad, 0, PA_SCROLL_LEFT , PA_SCROLL_LEFT );
       
       PT_INIT(&hilo1);//inicializando hilo
       iniciar_tablero();

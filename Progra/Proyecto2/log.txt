@@ -1,0 +1,7 @@
+Starting Report Files
+Starting to Load and Hash-Code Documents
+Done Loading Documents
+Starting to Compare Documents
+Done Comparing Documents
+Finishing Report Files
+Done. Total CPU Time: 0.001 seconds

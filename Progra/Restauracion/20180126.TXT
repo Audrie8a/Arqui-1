@@ -1,0 +1,11 @@
+
+Nombre: Sergio Sebastian Chacon Herrera
+Carnet: 201709159
+Fecha: 5 /5 /2021
+Hora: 14:13:58
+Numero    Frecuencia1            110            215            150            395            2400            4
+Mediana: 50.0
+Promedio: 152.0
+Moda: 400
+Mayor: 400
+Menor: 1

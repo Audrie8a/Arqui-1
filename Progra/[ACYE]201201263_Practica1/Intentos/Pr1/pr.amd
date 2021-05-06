@@ -1,0 +1,37 @@
+;-----------------------------------------------------MACROS
+include macros.asm
+
+;----------------------------------------------------DECLARACIONES
+.model small
+
+;----------------------------------------------------PILA
+.stack
+
+;----------------------------------------------------SEGMENTO DE DATOS
+.data
+;Cadenas Menu
+menu0 db 0ah,0dh, '-----MENU PRINCIPAL -----','$'
+menu1 db 0ah,0dh, '1.Cargar Archivo','$'
+menu2 db 0ah,0dh, '2.ModoCalculadora','$'
+menu3 db 0ah,0dh, '3.Factorial','$'
+menu4 db 0ah,0dh, '4.Crear reporte','$'
+menu5 db 0ah,0dh, '5.Salir','$'
+
+
+;----------------------------------------------------SEGMENTO DE CODIGO
+.code
+
+main proc
+	imprimir:
+		print menu0
+		print menu1
+		print menu2
+		print menu3
+		print menu4
+		print menu5
+	salir:
+	mov ah, 4ch
+	xor al,al
+	int 21h
+main endp
+end main
