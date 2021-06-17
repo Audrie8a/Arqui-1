@@ -1,0 +1,17 @@
+<Operaciones>
+        <operacion3>
+            <RES>
+                <SUM>
+                    <SUM>
+                        <RES>
+                            <Valor> -40</Valor>
+                            <Valor> -10 </Valor>
+                        </RES>
+                        <Valor> 23</Valor>
+                    </SUM>
+                    <Valor> 55</Valor>
+                </SUM>
+                <Valor> 15 </Valor>
+            </RES>
+        </operacion3>
+    </Operaciones>
